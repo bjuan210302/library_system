@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import customExceptions.InfoLoaderException;
+import customExceptions.UserLoaderException;
 import model.Person.*;
 
 class LibraryTest {
@@ -48,7 +48,7 @@ class LibraryTest {
 		
 		try {
 			library.loadUsers(path);
-		} catch (IOException | InfoLoaderException e) {
+		} catch (IOException | UserLoaderException e) {
 			fail("Unexpected exception: " + e.getClass() + " Message: " + e.getMessage());
 		}
 		
@@ -63,7 +63,7 @@ class LibraryTest {
 		
 		try {
 			library.loadUsers(path);
-		} catch (IOException | InfoLoaderException e) {
+		} catch (IOException | UserLoaderException e) {
 			fail("Unexpected exception: " + e.getClass() + " Message: " + e.getMessage());
 		}
 		
@@ -80,7 +80,7 @@ class LibraryTest {
 			library.loadUsers(path);
 		} catch (IOException e) {
 			fail("Unexpected exception: " + e.getClass() + " Message: " + e.getMessage());
-		} catch (InfoLoaderException e) {
+		} catch (UserLoaderException e) {
 			exceptionMessage = e.getMessage();
 		}
 		
@@ -97,7 +97,7 @@ class LibraryTest {
 			library.loadUsers(path);
 		} catch (IOException e) {
 			fail("Unexpected exception: " + e.getClass() + " Message: " + e.getMessage());
-		} catch (InfoLoaderException e) {
+		} catch (UserLoaderException e) {
 			exceptionMessage = e.getMessage();
 		}
 		
@@ -114,7 +114,7 @@ class LibraryTest {
 			library.loadUsers(path);
 		} catch (IOException e) {
 			fail("Unexpected exception: " + e.getClass() + " Message: " + e.getMessage());
-		} catch (InfoLoaderException e) {
+		} catch (UserLoaderException e) {
 			exceptionMessage = e.getMessage();
 		}
 		
@@ -131,7 +131,7 @@ class LibraryTest {
 			library.loadUsers(path);
 		} catch (IOException e) {
 			fail("Unexpected exception: " + e.getClass() + " Message: " + e.getMessage());
-		} catch (InfoLoaderException e) {
+		} catch (UserLoaderException e) {
 			exceptionMessage = e.getMessage();
 		}
 		

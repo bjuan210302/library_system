@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import customExceptions.InfoLoaderException;
+import customExceptions.UserLoaderException;
 import model.book.*;
 import model.computer.*;
 import model.room.*;
@@ -36,8 +36,9 @@ public class Library {
 		return users;
 	}
 	
-	
-	public void loadUsers(String dataPath) throws IOException, InfoLoaderException {
-		users = InfoLoader.loadUsers(dataPath);
+	public void loadUsers(String dataPath) throws IOException, UserLoaderException {
+		users = InfoHandler.loadUsers(dataPath);
 	}
+	
+	
 }
