@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import customExceptions.InvalidArgsLengthException;
+import customExceptions.UnknownClassIdentifierException;
 import customExceptions.UserLoaderException;
 import model.Person.*;
 import model.book.AcademicBook;
@@ -52,27 +54,30 @@ public class InfoHandler {
 				
 				String identifier = idenAndArgs[0];
 				String[] args = idenAndArgs[1].split(";");
-				if(!identifier.equals(STUDENT_CLASS_IDENTIFIER) && !identifier.equals(PROFESSOR_CLASS_IDENTIFIER)) { // If the identifier is not supported
-					throw new UserLoaderException(dataPath, lineNumber, "UNKNOWN IDENTIFIER ("+identifier+")");
-				}
+				switch(identifier) {
 				
-				if(identifier.equals(STUDENT_CLASS_IDENTIFIER)) {
+				case STUDENT_CLASS_IDENTIFIER:
 					if(args.length != STUDENT_ARGS_LENGTH) { // If the info doesn't match Student required info
 						throw new UserLoaderException(
 							dataPath, lineNumber, "STUDENT FORMAT ARGS ("+args.length+") DOES NOT MATCH REQUIRED NUMBER OF ARGS("+STUDENT_ARGS_LENGTH+")" 
 						);
 					}
 					toAdd = new Student(args);
-
-				}else {
+					break;
+					
+				case PROFESSOR_CLASS_IDENTIFIER:
 					if(args.length != PROFESSOR_ARGS_LENGTH) { // If the info doesn't match Professor required info
 						throw new UserLoaderException(
 								dataPath, lineNumber, "PROFESSOR FORMAT ARGS ("+args.length+") DOES NOT MATCH REQUIRED NUMBER OF ARGS("+PROFESSOR_ARGS_LENGTH+")" 
 						);
 					}
 					toAdd = new Professor(args);
+					break;
+					
+				default: // If the identifier is not supported
+					throw new UserLoaderException(dataPath, lineNumber, "UNKNOWN IDENTIFIER ("+identifier+")");
+					
 				}
-				
 				users.add(toAdd);
 			}
 			
@@ -84,21 +89,20 @@ public class InfoHandler {
 		return users;
 	}
 
-	public static Book createBook(String classIdentifier, String[] args) {
+	public static Book createBook(String classIdentifier, String[] args) throws UnknownClassIdentifierException, InvalidArgsLengthException {
 		Book book = null;
 		
 		switch(classIdentifier) {
 		case LITERARYBOOK_CLASS_IDENTIFIER:
-			if(args.length != LITERARYBOOK_ARGS_LENGTH) // Throw InvalidArgsLengthException
+			if(args.length != LITERARYBOOK_ARGS_LENGTH) throw new InvalidArgsLengthException("LiteraryBook", args.length, LITERARYBOOK_ARGS_LENGTH);
 			book = new LiteraryBook(args);
 			break;
 		case ACADEMICBOOK_CLASS_IDENTIFIER:
-			if(args.length != ACADEMICBOOK_ARGS_LENGTH)	// Throw InvalidArgsLengthException
+			if(args.length != ACADEMICBOOK_ARGS_LENGTH)	throw new InvalidArgsLengthException("AcademicBook", args.length, ACADEMICBOOK_ARGS_LENGTH);
 			book = new AcademicBook(args);
 			break;
 		default:
-			// Throw UnknownClassIdentifier exception
-			break;
+				throw new UnknownClassIdentifierException(classIdentifier, "Book");
 		}
 		
 		return book;
