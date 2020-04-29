@@ -19,13 +19,13 @@ public class Professor extends Person {
 		this.courses = args[3];
 	}
 	
-	public boolean equals(Professor p) {
-		boolean equals = true;
+	public boolean equals(Person x) {
+		Professor p = (Professor) x;
+		boolean equals = super.equals(x);
 		
-		if(!name.equals(p.name)) equals = false;
-		else if(!id.equals(p.id)) equals = false;
-		else if(suspended != p.suspended) equals = false;
-		else if(!courses.equals(p.courses)) equals = false;
+		if(equals) {
+			if(!courses.equals(p.courses)) equals = false;
+		}
 		
 		return equals;
 	}

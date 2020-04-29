@@ -8,4 +8,5 @@ public abstract class Item {
 		this.code = code;
 	}
 	
+	public abstract boolean equals(Item t);
 }

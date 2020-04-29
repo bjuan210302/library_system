@@ -27,16 +27,17 @@ public class Student extends Person {
 		this.isMonitor = Boolean.parseBoolean(args[6]);
 	}
 	
-	public boolean equals(Student s) {
-		boolean equals = true;
-		
-		if(!name.equals(s.name)) equals = false;
-		else if(!id.equals(s.id)) equals = false;
-		else if(suspended != s.suspended) equals = false;
-		else if(!code.equals(s.code)) equals = false;
-		else if(!career.equals(s.career)) equals = false;
-		else if(hasScholarship != s.hasScholarship) equals = false;
-		else if(isMonitor != s.isMonitor) equals = false;
+	@Override
+	public boolean equals(Person x) {
+		Student s = (Student) x;
+		boolean equals = super.equals(x);
+
+		if(equals) {
+			if(!code.equals(s.code)) equals = false;
+			else if(!career.equals(s.career)) equals = false;
+			else if(hasScholarship != s.hasScholarship) equals = false;
+			else if(isMonitor != s.isMonitor) equals = false;
+		}
 		
 		return equals;
 	}

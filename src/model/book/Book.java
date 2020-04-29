@@ -18,4 +18,18 @@ public abstract class Book extends Item {
 		this.editor = editor;
 		this.numberOfPages = numberOfPages;
 	}
+	
+	@Override
+	public boolean equals(Item t) {
+		boolean equals = true;
+		Book b = (Book) t;
+		
+		if(!title.equals(b.title)) equals = false;
+		else if(!author.equals(b.author)) equals = false;
+		else if(publicationDate != b.publicationDate) equals = false;
+		else if(!editor.equals(b.editor)) equals = false;
+		else if(numberOfPages != b.numberOfPages) equals = false;
+		
+		return equals;
+	}
 }

@@ -1,5 +1,7 @@
 package model.book;
 
+import model.Item;
+
 public class AcademicBook extends Book {
 
 	private String coursesUsingThisBook;
@@ -20,5 +22,18 @@ public class AcademicBook extends Book {
 		super(args[0], args[1], args[2], args[3], args[4], Integer.parseInt(args[5]));
 		this.coursesUsingThisBook = args[6];
 		this.edition = Integer.parseInt(args[7]);
+	}
+	
+	@Override
+	public boolean equals(Item t) {
+		AcademicBook ab = (AcademicBook) t;
+		boolean equals = super.equals(t);
+		
+		if(equals) {
+			if(coursesUsingThisBook != ab.coursesUsingThisBook) equals = false;
+			else if(edition != ab.edition) equals = false;
+		}
+		
+		return equals;
 	}
 }

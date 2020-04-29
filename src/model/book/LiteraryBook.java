@@ -1,5 +1,7 @@
 package model.book;
 
+import model.Item;
+
 public class LiteraryBook extends Book {
 
 	public static final int LITERARY_BOOK_NOVEL = 1;
@@ -24,5 +26,18 @@ public class LiteraryBook extends Book {
 		super(args[0], args[1], args[2], args[3], args[4], Integer.parseInt(args[5]));
 		this.genre = args[6];
 		this.type = Integer.parseInt(args[7]);
+	}
+
+	@Override
+	public boolean equals(Item t) {
+		LiteraryBook lb = (LiteraryBook) t;
+		boolean equals = super.equals(t);
+		
+		if(equals) {
+			if(genre != lb.genre) equals = false;
+			else if(type != lb.type) equals = false;
+		}
+		
+		return equals;
 	}
 }

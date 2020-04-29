@@ -13,4 +13,13 @@ public abstract class Person {
 		this.suspended = suspended;
 	}
 	
+	public boolean equals(Person x) {
+		boolean equals = true;
+		
+		if(!name.equals(x.name)) equals = false;
+		else if(!id.equals(x.id)) equals = false;
+		else if(suspended != x.suspended) equals = false;
+		
+		return equals;
+	}
 }
