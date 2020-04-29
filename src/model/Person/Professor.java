@@ -16,7 +16,7 @@ public class Professor extends Person {
 		 * if Professor: args[3] is courses
 		 */
 		super(args[0], args[1], Boolean.parseBoolean(args[2]));
-		this.courses = args[4];
+		this.courses = args[3];
 	}
 	
 	public boolean equals(Professor p) {
