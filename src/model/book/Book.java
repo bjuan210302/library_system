@@ -10,6 +10,8 @@ public abstract class Book extends Item {
 	protected String editor;
 	protected int numberOfPages;
 	
+	protected Book next;
+	
 	public Book(String code, String title, String author, String publicationDate, String editor, int numberOfPages) {
 		super(code);
 		this.title = title;
@@ -19,6 +21,16 @@ public abstract class Book extends Item {
 		this.numberOfPages = numberOfPages;
 	}
 	
+	public String getTitle() {
+		return title;
+	}
+	
+	public Book getNext() {
+		return next;
+	}
+	public void setNext(Book next) {
+		this.next = next;
+	}
 	@Override
 	public boolean equals(Item t) {
 		boolean equals = true;
