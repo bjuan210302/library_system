@@ -8,5 +8,10 @@ public abstract class Item {
 		this.code = code;
 	}
 	
+	public String getCode() {
+		return code;
+	}
+	
 	public abstract boolean equals(Item t);
+	
 }
