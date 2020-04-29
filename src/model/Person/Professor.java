@@ -18,4 +18,15 @@ public class Professor extends Person {
 		super(args[0], args[1], Boolean.parseBoolean(args[2]));
 		this.courses = args[4];
 	}
+	
+	public boolean equals(Professor p) {
+		boolean equals = true;
+		
+		if(!name.equals(p.name)) equals = false;
+		else if(!id.equals(p.id)) equals = false;
+		else if(suspended != p.suspended) equals = false;
+		else if(!courses.equals(p.courses)) equals = false;
+		
+		return equals;
+	}
 }

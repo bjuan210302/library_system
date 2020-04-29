@@ -1,8 +1,10 @@
 package model;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import customExceptions.InfoLoaderException;
 import model.book.*;
 import model.computer.*;
 import model.room.*;
@@ -28,5 +30,9 @@ public class Library {
 		this.nextBookID = "b-1";
 		this.nextRoomID = "r-1";
 		this.nextComputerID = "c-1";
+	}
+	
+	public void loadUsers(String dataPath) throws IOException, InfoLoaderException {
+		users = InfoLoader.loadUsers(dataPath);
 	}
 }

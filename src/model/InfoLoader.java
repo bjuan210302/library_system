@@ -14,7 +14,7 @@ public class InfoLoader {
 	private static final int STUDENT_ARGS_FORMAT = 7;
 	private static final int PROFESSOR_ARGS_FORMAT = 4;
 	
-	public ArrayList<Person> loadUsers(String dataPath) throws IOException, InfoLoaderException {
+	public static ArrayList<Person> loadUsers(String dataPath) throws IOException, InfoLoaderException {
 		BufferedReader br = new BufferedReader(new FileReader(new File(dataPath)));
 		ArrayList<Person> users = new ArrayList<Person>();
 		/*
@@ -69,6 +69,7 @@ public class InfoLoader {
 			lineNumber++;
 		}
 		
+		br.close();
 		return users;
 	}
 	
