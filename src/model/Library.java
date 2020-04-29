@@ -32,6 +32,11 @@ public class Library {
 		this.nextComputerID = "c-1";
 	}
 	
+	public ArrayList<Person> getUsers(){
+		return users;
+	}
+	
+	
 	public void loadUsers(String dataPath) throws IOException, InfoLoaderException {
 		users = InfoLoader.loadUsers(dataPath);
 	}

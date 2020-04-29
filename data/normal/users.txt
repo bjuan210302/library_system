@@ -1,0 +1,3 @@
+#Lines starting with '#' are comments and will be ignored by the loader
+#Student info: identifier-name;id;suspended;code;career;hasScholarship;isMonitor
+#Professor info: identifier-name;id;suspended;courses,separated,like,this

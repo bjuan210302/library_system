@@ -1,0 +1,2 @@
+s-Juan Bustamante;01;false;A00362288;IngSys;true;false
+p-Seyerman;02;false;apoII,sysStructures
