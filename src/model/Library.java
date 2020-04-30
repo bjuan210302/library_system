@@ -45,6 +45,11 @@ public class Library {
 	}
 	
 	public void addBook(String classIdentifier, String[] args) throws UnknownClassIdentifierException, InvalidArgsLengthException, ExistingObjectException {
+		/*
+		 * To use this method, fill the args array with info in [1 to 7], but leave empty args[0].
+		 * args[0] is for item code, and thats assigned in this method.
+		 */
+		args[0] = this.nextBookID;
 		Book newBook = InfoHandler.createBook(classIdentifier, args);
 		
 		if(newBook instanceof LiteraryBook) { 
@@ -60,6 +65,7 @@ public class Library {
 		
 		lastBook.setNext(newBook);
 		lastBook = newBook;
+		this.nextBookID = InfoHandler.advanceCode(nextBookID);
 	}
 	
 	public Book searchBookByTitle(String title) {

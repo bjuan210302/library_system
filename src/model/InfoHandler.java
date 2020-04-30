@@ -47,6 +47,7 @@ public class InfoHandler {
 				String[] idenAndArgs = line.split("-"); 
 				
 				if(idenAndArgs.length != LINE_ARGS_LENGTH) { // If unknown formatted line
+					br.close();
 					throw new UserLoaderException(
 						dataPath, lineNumber, "LINE FORMAT ARGS ("+idenAndArgs.length+") DOES NOT MATCH REQUIRED NUMBER OF ARGS("+LINE_ARGS_LENGTH+")" 
 					);
@@ -58,6 +59,7 @@ public class InfoHandler {
 				
 				case STUDENT_CLASS_IDENTIFIER:
 					if(args.length != STUDENT_ARGS_LENGTH) { // If the info doesn't match Student required info
+						br.close();
 						throw new UserLoaderException(
 							dataPath, lineNumber, "STUDENT FORMAT ARGS ("+args.length+") DOES NOT MATCH REQUIRED NUMBER OF ARGS("+STUDENT_ARGS_LENGTH+")" 
 						);
@@ -67,6 +69,7 @@ public class InfoHandler {
 					
 				case PROFESSOR_CLASS_IDENTIFIER:
 					if(args.length != PROFESSOR_ARGS_LENGTH) { // If the info doesn't match Professor required info
+						br.close();
 						throw new UserLoaderException(
 								dataPath, lineNumber, "PROFESSOR FORMAT ARGS ("+args.length+") DOES NOT MATCH REQUIRED NUMBER OF ARGS("+PROFESSOR_ARGS_LENGTH+")" 
 						);
@@ -75,6 +78,7 @@ public class InfoHandler {
 					break;
 					
 				default: // If the identifier is not supported
+					br.close();
 					throw new UserLoaderException(dataPath, lineNumber, "UNKNOWN IDENTIFIER ("+identifier+")");
 					
 				}
@@ -106,5 +110,22 @@ public class InfoHandler {
 		}
 		
 		return book;
+	}
+	
+	public static String advanceCode(String actualCode) {
+		/*
+		 * The tag must be formatted like: X-y*
+		 * Being x a letter and y* ONE OR MORE numbers.
+		 */
+		String nextCode = "x-y";
+		String[] parts = actualCode.split("-");
+		// TODO throw an exception here in case the formatting is wrong but meh
+		int numbers = Integer.parseInt(parts[1]);
+		numbers++;
+		
+		nextCode.replace("x", parts[0]);
+		nextCode.replace("y", String.valueOf(numbers));
+		
+		return nextCode;
 	}
 }
