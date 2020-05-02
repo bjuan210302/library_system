@@ -3,6 +3,8 @@ package ui;
 import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXTextField;
 
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -40,6 +42,21 @@ public class PrincipalController { //WARNING: THIS CLASS IS A FUCKING MESS
     private JFXButton borrowsButton;
     @FXML
     private StackPane principalPane;
+    
+    
+    //items pane elements
+    @FXML
+    private JFXCheckBox booksCheckBox;
+
+    @FXML
+    private JFXCheckBox studyRCheckBox;
+
+    @FXML
+    private JFXCheckBox computersCheckBox;
+
+    @FXML
+    private JFXTextField searchField;
+    //end of items pane elements
     
     private int currentPanel;
     private BorderPane firstPane;
