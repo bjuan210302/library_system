@@ -19,6 +19,9 @@ import javafx.util.Duration;
 
 public class PrincipalController { //WARNING: THIS CLASS IS A FUCKING MESS
 
+	//CONTROLLER
+	private ItemsPaneController itemsPaneController;
+	
 	//ANIMATION STUFF
 	static final double ANIMATION_DURATION = 0.2;
 	Timeline timeline;
@@ -205,8 +208,10 @@ public class PrincipalController { //WARNING: THIS CLASS IS A FUCKING MESS
     
     public void whenInitializing() throws IOException {
     	
+    	itemsPaneController = new ItemsPaneController();
+    	
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("itemsPane.fxml"));
-    	fxmlLoader.setController(this);
+    	fxmlLoader.setController(itemsPaneController);
     	firstPane = fxmlLoader.load();
     	firstPane.translateYProperty().set(0);
     	principalPane.getChildren().add(firstPane);

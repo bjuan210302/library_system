@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="453.0" style="-fx-background-color: #bc9aed;" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="firstLabel" layoutX="86.0" layoutY="13.0" text="Basic info">
+               <font>
+                  <Font name="Microsoft YaHei" size="10.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Label>
+            <Label fx:id="secondLabel" layoutX="301.0" layoutY="13.0" text="Specifications" textFill="#868686">
+               <font>
+                  <Font name="Microsoft YaHei" size="10.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <StackPane fx:id="baseStackPane" prefHeight="340.0" prefWidth="455.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane fx:id="BasicInfoStackPane" prefHeight="340.0" prefWidth="455.0" style="-fx-background-color: #fcfcfc;">
+               <children>
+                  <JFXButton fx:id="nextButton" layoutX="397.0" layoutY="301.0" onAction="#nextButtonAction" text="Next">
+                     <font>
+                        <Font name="Microsoft YaHei" size="12.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXComboBox fx:id="bookTypeBox" focusColor="#af8de373" layoutX="68.0" layoutY="237.0" prefHeight="25.0" prefWidth="151.0" unFocusColor="#e8e8e8" />
+                  <Text layoutX="14.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="About the book:">
+                     <font>
+                        <Font name="Microsoft YaHei" size="22.0" />
+                     </font>
+                  </Text>
+                  <Label layoutX="23.0" layoutY="58.0" text="Title:" AnchorPane.leftAnchor="30.0">
+                     <font>
+                        <Font name="Microsoft YaHei" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="30.0" layoutY="102.0" text="Author:" AnchorPane.leftAnchor="30.0">
+                     <font>
+                        <Font name="Microsoft YaHei" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="30.0" layoutY="146.0" text="Editor:" AnchorPane.leftAnchor="30.0">
+                     <font>
+                        <Font name="Microsoft YaHei" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="30.0" layoutY="190.0" text="Number of pages:" AnchorPane.leftAnchor="30.0">
+                     <font>
+                        <Font name="Microsoft YaHei" size="12.0" />
+                     </font>
+                  </Label>
+                  <JFXDatePicker defaultColor="#b08ae6" layoutX="259.0" layoutY="54.0" prefHeight="25.0" prefWidth="182.0" promptText="Date of publication" />
+                  <Label layoutX="30.0" layoutY="241.0" text="Type:">
+                     <font>
+                        <Font name="Microsoft YaHei" size="12.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField focusColor="#b08ce573" layoutX="67.0" layoutY="54.0" prefHeight="25.0" prefWidth="150.0" unFocusColor="#e8e8e8" />
+                  <JFXTextField focusColor="#b08ce573" layoutX="82.0" layoutY="98.0" unFocusColor="#e8e8e8" />
+                  <JFXTextField focusColor="#b08ce573" layoutX="75.0" layoutY="142.0" prefHeight="25.0" prefWidth="143.0" unFocusColor="#e8e8e8" />
+                  <JFXTextField focusColor="#b08ce573" layoutX="139.0" layoutY="188.0" prefHeight="25.0" prefWidth="79.0" unFocusColor="#e8e8e8" />
+               </children>
+            </AnchorPane>
+         </children>
+      </StackPane>
+   </center>
+</BorderPane>

@@ -4,22 +4,34 @@
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="514.0" prefWidth="751.0" style="-fx-background-color: #ebebeb;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="600.0" prefWidth="729.0" style="-fx-background-color: #ebebeb;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <Pane prefHeight="525.0" prefWidth="770.0" BorderPane.alignment="CENTER">
+      <Pane prefHeight="525.0" prefWidth="722.0" style="-fx-background-color: #fcfcfc;" BorderPane.alignment="CENTER">
          <children>
-            <JFXCheckBox fx:id="booksCheckBox" checkedColor="#0f729b" layoutX="48.0" layoutY="43.0" text="Books" />
-            <JFXCheckBox fx:id="studyRCheckBox" checkedColor="#0f729b" layoutX="147.0" layoutY="43.0" text="Study rooms" />
-            <JFXCheckBox fx:id="computersCheckBox" checkedColor="#0f729b" layoutX="272.0" layoutY="43.0" text="Computers" />
-            <JFXTreeTableView layoutX="47.0" layoutY="85.0" prefHeight="350.0" prefWidth="413.0" />
-            <JFXTextField fx:id="searchField" layoutX="505.0" layoutY="40.0" />
-            <JFXButton layoutX="653.0" layoutY="39.0" text=" ">
+            <JFXCheckBox fx:id="booksCheckBox" checkedColor="#0f729b" layoutX="48.0" layoutY="43.0" text="Books">
+               <font>
+                  <Font name="Microsoft YaHei" size="12.0" />
+               </font></JFXCheckBox>
+            <JFXCheckBox fx:id="studyRCheckBox" checkedColor="#0f729b" layoutX="147.0" layoutY="43.0" text="Study rooms">
+               <font>
+                  <Font name="Microsoft YaHei" size="12.0" />
+               </font></JFXCheckBox>
+            <JFXCheckBox fx:id="computersCheckBox" checkedColor="#0f729b" layoutX="272.0" layoutY="43.0" text="Computers">
+               <font>
+                  <Font name="Microsoft YaHei" size="12.0" />
+               </font></JFXCheckBox>
+            <JFXTreeTableView layoutX="47.0" layoutY="85.0" prefHeight="479.0" prefWidth="416.0" style="-fx-background-color: #fcfcfc;" />
+            <JFXTextField fx:id="searchField" layoutX="505.0" layoutY="40.0" prefHeight="25.0" prefWidth="171.0" />
+            <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="686.0" layoutY="38.0" text=" ">
                <graphic>
                   <ImageView fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -28,29 +40,60 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <Label layoutX="505.0" layoutY="121.0" text="Registered:" />
-            <Label layoutX="505.0" layoutY="146.0" text="Available:" />
-            <Label layoutX="505.0" layoutY="172.0" text="Borrowed to:" />
-            <Label layoutX="505.0" layoutY="196.0" text="Return date:" />
-            <Label layoutX="505.0" layoutY="221.0" text="Lost:" />
-            <JFXButton layoutX="529.0" layoutY="261.0" prefHeight="33.0" prefWidth="29.0" text=" ">
+            <Label layoutX="505.0" layoutY="85.0" text="Registered:">
+               <font>
+                  <Font name="Microsoft YaHei" size="12.0" />
+               </font></Label>
+            <Label layoutX="505.0" layoutY="110.0" text="Available:">
+               <font>
+                  <Font name="Microsoft YaHei" size="12.0" />
+               </font></Label>
+            <Label layoutX="505.0" layoutY="136.0" text="Borrowed to:">
+               <font>
+                  <Font name="Microsoft YaHei" size="12.0" />
+               </font></Label>
+            <Label layoutX="505.0" layoutY="160.0" text="Return date:">
+               <font>
+                  <Font name="Microsoft YaHei" size="12.0" />
+               </font></Label>
+            <Label layoutX="505.0" layoutY="185.0" text="Lost:">
+               <font>
+                  <Font name="Microsoft YaHei" size="12.0" />
+               </font></Label>
+            <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="581.0" layoutY="526.0" prefHeight="30.0" prefWidth="30.0" text="More info">
                <graphic>
-                  <ImageView fitHeight="38.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../assets/can.png" />
+                        <Image url="@../../assets/more-info.png" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="614.0" layoutY="265.0" ripplerFill="#285aab" text="More info" />
-            <JFXButton layoutX="555.0" layoutY="326.0" text="Register">
+            <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="653.0" layoutY="526.0" ripplerFill="#285aab" text="Delete">
                <graphic>
-                  <ImageView fitHeight="22.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assets/can.png" />
+                     </image>
+                  </ImageView>
+               </graphic></JFXButton>
+            <JFXButton fx:id="buttonRegister" contentDisplay="GRAPHIC_ONLY" layoutX="507.0" layoutY="526.0" onAction="#buttonRegisterAction" text="Register">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/plus.png" />
                      </image>
                   </ImageView>
-               </graphic></JFXButton>
+               </graphic>
+               <contextMenu>
+                  <ContextMenu fx:id="contextMenuRegister">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#registerBook" text="Book" />
+                        <MenuItem mnemonicParsing="false" onAction="#registerRoom" text="Room" />
+                        <MenuItem mnemonicParsing="false" onAction="#registerComputer" text="Computer" />
+                     </items>
+                  </ContextMenu>
+               </contextMenu></JFXButton>
          </children>
       </Pane>
    </center>
