@@ -3,10 +3,6 @@ package model.book;
 import model.Item;
 
 public class LiteraryBook extends Book {
-
-	public static final String LITERARY_BOOK_NOVEL = "Novel";
-	public static final String LITERARY_BOOK_BIOGRAPHY  = "Biography";
-	public static final String LITERARY_BOOK_POETRY  = "Poetry";
 	
 	private String genre;
 	private String type;

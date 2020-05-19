@@ -16,9 +16,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import model.Library;
 
 public class PrincipalController { //WARNING: THIS CLASS IS A FUCKING MESS
 
+	private Library lib;
+	private int currentPanel;
+    private BorderPane firstPane;
+    private BorderPane secondPane;
+    private BorderPane thirdPane;
+    
+	public PrincipalController() {
+		this.lib = new Library();
+		this.currentPanel = 1;
+	}
 	//CONTROLLER
 	private ItemsPaneController itemsPaneController;
 	
@@ -50,25 +61,12 @@ public class PrincipalController { //WARNING: THIS CLASS IS A FUCKING MESS
     //items pane elements
     @FXML
     private JFXCheckBox booksCheckBox;
-
     @FXML
     private JFXCheckBox studyRCheckBox;
-
     @FXML
     private JFXCheckBox computersCheckBox;
-
     @FXML
     private JFXTextField searchField;
-    //end of items pane elements
-    
-    private int currentPanel;
-    private BorderPane firstPane;
-    private BorderPane secondPane;
-    private BorderPane thirdPane;
-
-    public PrincipalController() {
-		this.currentPanel = 1;
-	}
     
     @FXML
     public void itemsButtonAction(ActionEvent event) throws IOException {
@@ -117,7 +115,6 @@ public class PrincipalController { //WARNING: THIS CLASS IS A FUCKING MESS
     		break;
     	}
     }
-
     @FXML
     public void usersButtonAction(ActionEvent event) {
     	switch (currentPanel) {
@@ -158,7 +155,6 @@ public class PrincipalController { //WARNING: THIS CLASS IS A FUCKING MESS
     		break;
 		}
     }
-
     @FXML
     public void borrowsButtonAction(ActionEvent event) {
     	switch (currentPanel) {
@@ -208,7 +204,7 @@ public class PrincipalController { //WARNING: THIS CLASS IS A FUCKING MESS
     
     public void whenInitializing() throws IOException {
     	
-    	itemsPaneController = new ItemsPaneController();
+    	itemsPaneController = new ItemsPaneController(lib);
     	
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("itemsPane.fxml"));
     	fxmlLoader.setController(itemsPaneController);

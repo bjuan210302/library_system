@@ -21,9 +21,6 @@ public class InfoHandler {
 	private static final int STUDENT_ARGS_LENGTH = 7;
 	private static final int PROFESSOR_ARGS_LENGTH = 4;
 	
-	
-	private static final String LITERARYBOOK_CLASS_IDENTIFIER = "lb";
-	private static final String ACADEMICBOOK_CLASS_IDENTIFIER = "ab";
 	private static final int LITERARYBOOK_ARGS_LENGTH = 8;
 	private static final int ACADEMICBOOK_ARGS_LENGTH = 8;
 	
@@ -97,11 +94,11 @@ public class InfoHandler {
 		Book book = null;
 		
 		switch(classIdentifier) {
-		case LITERARYBOOK_CLASS_IDENTIFIER:
+		case Library.BOOK_IDENTIFIER_LITERARY:
 			if(args.length != LITERARYBOOK_ARGS_LENGTH) throw new InvalidArgsLengthException("LiteraryBook", args.length, LITERARYBOOK_ARGS_LENGTH);
 			book = new LiteraryBook(args);
 			break;
-		case ACADEMICBOOK_CLASS_IDENTIFIER:
+		case Library.BOOK_IDENTIFIER_ACADEMIC:
 			if(args.length != ACADEMICBOOK_ARGS_LENGTH)	throw new InvalidArgsLengthException("AcademicBook", args.length, ACADEMICBOOK_ARGS_LENGTH);
 			book = new AcademicBook(args);
 			break;

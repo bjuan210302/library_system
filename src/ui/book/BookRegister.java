@@ -4,38 +4,41 @@ import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.NumberValidator;
+import com.jfoenix.validation.RequiredFieldValidator;
 
+import customExceptions.ExistingObjectException;
+import customExceptions.InvalidArgsLengthException;
+import customExceptions.UnknownClassIdentifierException;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Shadow;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import model.Library;
 
 public class BookRegister {
 
+	private Library lib;
+	
+	public BookRegister(Library lib) {
+		this.lib = lib;
+	}
 	//HEADER DECO
 	@FXML
     private Label firstLabel;
@@ -51,9 +54,34 @@ public class BookRegister {
     @FXML
     private AnchorPane basicInfoPane;
     private AnchorPane specificationsPane;
+    
     //BASE PANEL STUFF
     @FXML
     private JFXComboBox<String> bookTypeBox;
+    @FXML
+    private JFXDatePicker dateOfPublicationField;
+    @FXML
+    private JFXTextField titleField;
+    @FXML
+    private JFXTextField authorField;
+    @FXML
+    private JFXTextField editorField;
+    @FXML
+    private JFXTextField numPagesField;
+    
+    //LITERARY BOOK PANE STUFF
+    @FXML
+    private JFXComboBox<String> literaryBookTypeBox;
+    @FXML
+    private JFXTextField literaryBookGenreField;
+
+    //ACADEMIC BOOK PANE STUFF
+    @FXML
+    private JFXTextArea academicBookCoursesList;
+    @FXML
+    private JFXTextField academicBookEditionField;
+    
+    //BUTTONS
     @FXML
     private JFXButton nextButton;
     @FXML
@@ -67,10 +95,20 @@ public class BookRegister {
     	BorderPane basicBookRegPane = fxmlLoader.load();
     	Scene scene = new Scene(basicBookRegPane);
     	
-    	bookTypeBox.getItems().addAll("Literary", "Academic");
+    	//
+    	bookTypeBox.getItems().addAll(Library.BOOK_IDENTIFIER_LITERARY, Library.BOOK_IDENTIFIER_ACADEMIC);
     	bookTypeBox.getSelectionModel().select(0);
-    	
     	basicInfoPane = (AnchorPane) ((StackPane)basicBookRegPane.getCenter()).getChildren().get(0);
+    	
+    	RequiredFieldValidator requiredFieldValidator = new RequiredFieldValidator();
+    	NumberValidator numberValidator = new NumberValidator();
+    	
+    	titleField.getValidators().add(requiredFieldValidator);
+    	authorField.getValidators().add(requiredFieldValidator);
+    	editorField.getValidators().add(requiredFieldValidator);
+    	dateOfPublicationField.getValidators().add(requiredFieldValidator);
+    	numPagesField.getValidators().addAll(requiredFieldValidator, numberValidator);
+    	//
     	
     	Stage basicBookRegWindow = new Stage();
     	basicBookRegWindow.setScene(scene);
@@ -83,8 +121,20 @@ public class BookRegister {
     
     @FXML
     public void nextButtonAction(ActionEvent event) throws IOException {
-    	animateHeader();
-    	changePanel();
+    	if(!titleField.validate()) titleField.requestFocus();
+    	
+    	else if(!authorField.validate()) authorField.requestFocus();
+    	
+    	else if(!editorField.validate()) editorField.requestFocus();
+    	
+    	else if(!numPagesField.validate()) numPagesField.requestFocus();
+    	
+    	else if(!dateOfPublicationField.validate()) dateOfPublicationField.requestFocus();
+    	
+    	else {
+    		animateHeader();
+    		changePanel();
+    	}
     }
     @FXML
     public void cancelButtonAction(ActionEvent event) throws IOException {
@@ -101,10 +151,6 @@ public class BookRegister {
         
         timeline.play();
         timeline2.play();
-    }
-    @FXML
-    public void addBookButtonAction(ActionEvent event) {
-    	
     }
     @FXML
     public void backButtonAction(ActionEvent event) {
@@ -136,6 +182,29 @@ public class BookRegister {
         
         animateHeader();
     }
+    @FXML
+    public void addBookButtonAction(ActionEvent event) throws UnknownClassIdentifierException, InvalidArgsLengthException, ExistingObjectException {
+    	String[] args = new String[8];
+    	
+    	args[1] = titleField.getText();
+    	args[2] = authorField.getText();
+    	args[3] = dateOfPublicationField.getValue().toString();
+    	args[4] = editorField.getText();
+    	args[5] = numPagesField.getText();
+    	
+    	switch(bookTypeBox.getValue()) {
+    	case Library.BOOK_IDENTIFIER_LITERARY:
+    		args[6] = literaryBookGenreField.getText();
+    		args[7] = literaryBookTypeBox.getValue();
+    		break;
+    	case Library.BOOK_IDENTIFIER_ACADEMIC:
+    		args[6] = academicBookCoursesList.getText();
+    		args[7] = academicBookEditionField.getText();
+    		break;
+    	}
+    	
+    	lib.addBook(bookTypeBox.getValue(), args);
+    }
     
     public void animateHeader() {
     	Paint aux = secondLabel.getTextFill();
@@ -146,16 +215,16 @@ public class BookRegister {
     	String type = bookTypeBox.getValue();
     	
     	switch(type) {
-    	case "Literary":
-    		loadSpecificationsBookPane("literaryBookPane.fxml");
+    	case Library.BOOK_IDENTIFIER_LITERARY:
+    		loadSpecificationsBookPane("literaryBookPane.fxml", Library.BOOK_IDENTIFIER_LITERARY);
     		break;
-    	case "Academic":
-    		loadSpecificationsBookPane("academicBookPane.fxml");
+    	case Library.BOOK_IDENTIFIER_ACADEMIC:
+    		loadSpecificationsBookPane("academicBookPane.fxml", Library.BOOK_IDENTIFIER_ACADEMIC);
     		break;
     	}
     }
     
-    public void loadSpecificationsBookPane(String url) throws IOException {
+    public void loadSpecificationsBookPane(String url, String bookType) throws IOException {
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
     	fxmlLoader.setController(this);
     	specificationsPane = fxmlLoader.load();
@@ -188,5 +257,17 @@ public class BookRegister {
         newPaneOpacityAnimation.play();
         moveSpecificationsPane.play();
         basicPaneOpacityAnimation.play();
+        
+        switch (bookType) {
+		case Library.BOOK_IDENTIFIER_LITERARY:
+			literaryBookGenreField.getValidators().add(new RequiredFieldValidator());
+			literaryBookTypeBox.getItems().addAll(Library.LITERARY_BOOK_NOVEL, Library.LITERARY_BOOK_BIOGRAPHY, Library.LITERARY_BOOK_POETRY);
+			literaryBookTypeBox.getSelectionModel().select(0);
+			break;
+			
+		case Library.BOOK_IDENTIFIER_ACADEMIC:
+			academicBookEditionField.getValidators().addAll(new RequiredFieldValidator(), new NumberValidator());
+			break;
+		}
     }
 }

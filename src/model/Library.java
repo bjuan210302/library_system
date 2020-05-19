@@ -15,6 +15,13 @@ import model.Person.*;
 
 public class Library {
 
+	public static final String BOOK_IDENTIFIER_LITERARY = "Literary";
+	public static final String BOOK_IDENTIFIER_ACADEMIC = "Academic";
+	
+	public static final String LITERARY_BOOK_NOVEL = "Novel";
+	public static final String LITERARY_BOOK_BIOGRAPHY  = "Biography";
+	public static final String LITERARY_BOOK_POETRY  = "Poetry";
+	
 	private LocalDateTime sysTime;
 	private ArrayList<Person> users;
 	

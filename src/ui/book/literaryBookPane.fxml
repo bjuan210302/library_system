@@ -25,7 +25,7 @@
             <Font name="Microsoft YaHei" size="12.0" />
          </font>
       </JFXButton>
-      <JFXComboBox layoutX="74.0" layoutY="64.0" prefHeight="25.0" prefWidth="125.0" />
+      <JFXComboBox fx:id="literaryBookTypeBox" layoutX="74.0" layoutY="64.0" prefHeight="25.0" prefWidth="125.0" />
       <Label layoutX="33.0" layoutY="68.0" text="Type:" AnchorPane.leftAnchor="30.0">
          <font>
             <Font name="Microsoft YaHei" size="12.0" />
@@ -36,7 +36,7 @@
             <Font name="Microsoft YaHei" size="12.0" />
          </font>
       </Label>
-      <JFXTextField focusColor="#9abbed73" layoutX="77.0" layoutY="111.0" prefHeight="25.0" prefWidth="125.0" promptText="terror, drama, comedy..." unFocusColor="#e8e8e8" />
+      <JFXTextField fx:id="literaryBookGenreField" focusColor="#9abbed73" layoutX="77.0" layoutY="111.0" prefHeight="25.0" prefWidth="125.0" promptText="terror, drama, comedy..." unFocusColor="#e8e8e8" />
       <JFXButton fx:id="cancelButton" layoutX="14.0" layoutY="301.0" onAction="#cancelButtonAction" text="Cancel">
          <font>
             <Font name="Microsoft YaHei" size="12.0" />

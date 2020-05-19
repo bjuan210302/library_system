@@ -13,9 +13,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.paint.Paint;
+import model.Library;
 import ui.book.BookRegister;
 
 public class ItemsPaneController {
+	private Library lib;
+	
+	public ItemsPaneController(Library lib) {
+		this.lib = lib;
+	}
 	
     @FXML
     private JFXCheckBox booksCheckBox;
@@ -43,9 +49,8 @@ public class ItemsPaneController {
     
     @FXML
     void registerBook(ActionEvent event) throws IOException {
-    	BookRegister bookRegister = new BookRegister();
+    	BookRegister bookRegister = new BookRegister(lib);
     	bookRegister.basicBookRegWindow();
-    	
     }
 
     @FXML
