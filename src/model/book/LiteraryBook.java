@@ -4,15 +4,15 @@ import model.Item;
 
 public class LiteraryBook extends Book {
 
-	public static final int LITERARY_BOOK_NOVEL = 1;
-	public static final int LITERARY_BOOK_BIOGRAPHY  = 2;
-	public static final int LITERARY_BOOK_POETRY  = 3;
+	public static final String LITERARY_BOOK_NOVEL = "Novel";
+	public static final String LITERARY_BOOK_BIOGRAPHY  = "Biography";
+	public static final String LITERARY_BOOK_POETRY  = "Poetry";
 	
 	private String genre;
-	private int type;
+	private String type;
 	
 	public LiteraryBook(String code, String title, String author, String publicationDate, String editor,
-			int numberOfPages, String genre, int type) {
+			int numberOfPages, String genre, String type) {
 		super(code, title, author, publicationDate, editor, numberOfPages);
 		this.genre = genre;
 		this.type = type;
@@ -25,7 +25,7 @@ public class LiteraryBook extends Book {
 		 */
 		super(args[0], args[1], args[2], args[3], args[4], Integer.parseInt(args[5]));
 		this.genre = args[6];
-		this.type = Integer.parseInt(args[7]);
+		this.type = args[7];
 	}
 
 	@Override

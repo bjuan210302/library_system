@@ -1,15 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="340.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="340.0" prefWidth="455.0" style="-fx-background-color: #fcfcfc;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text layoutX="120.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Literary" wrappingWidth="215.46875">
+      <Text layoutX="14.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A few details more:">
          <font>
-            <Font size="65.0" />
+            <Font name="Microsoft YaHei" size="22.0" />
          </font>
       </Text>
+      <JFXButton fx:id="addBookButton" layoutX="368.0" layoutY="301.0" onAction="#addBookButtonAction" style="-fx-background-color: #9abbed;" text="Add book">
+         <font>
+            <Font name="Microsoft YaHei" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="backButton" layoutX="279.0" layoutY="301.0" onAction="#backButtonAction" text="← Go back">
+         <font>
+            <Font name="Microsoft YaHei" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXComboBox layoutX="74.0" layoutY="64.0" prefHeight="25.0" prefWidth="125.0" />
+      <Label layoutX="33.0" layoutY="68.0" text="Type:" AnchorPane.leftAnchor="30.0">
+         <font>
+            <Font name="Microsoft YaHei" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="27.0" layoutY="115.0" text="Genre:" AnchorPane.leftAnchor="30.0">
+         <font>
+            <Font name="Microsoft YaHei" size="12.0" />
+         </font>
+      </Label>
+      <JFXTextField focusColor="#9abbed73" layoutX="77.0" layoutY="111.0" prefHeight="25.0" prefWidth="125.0" promptText="terror, drama, comedy..." unFocusColor="#e8e8e8" />
+      <JFXButton fx:id="cancelButton" layoutX="14.0" layoutY="301.0" onAction="#cancelButtonAction" text="Cancel">
+         <font>
+            <Font name="Microsoft YaHei" size="12.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

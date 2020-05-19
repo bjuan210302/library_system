@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.paint.Paint;
 import ui.book.BookRegister;
 
 public class ItemsPaneController {
@@ -35,7 +36,7 @@ public class ItemsPaneController {
     private ContextMenu contextMenuRegister;
 
     @FXML
-    void buttonRegisterAction(ActionEvent event) {
+    public void buttonRegisterAction(ActionEvent event) {
     	Point mousePos = MouseInfo.getPointerInfo().getLocation();
     	contextMenuRegister.show(buttonRegister, mousePos.getX(), mousePos.getY());
     }
@@ -44,6 +45,7 @@ public class ItemsPaneController {
     void registerBook(ActionEvent event) throws IOException {
     	BookRegister bookRegister = new BookRegister();
     	bookRegister.basicBookRegWindow();
+    	
     }
 
     @FXML
