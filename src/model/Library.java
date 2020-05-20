@@ -164,7 +164,12 @@ public class Library {
 		this.nextComputerID = InfoHandler.advanceCode(nextComputerID);
 	}
 	public void addComputer(Computer newComputer) {
-		lastComputer.setNext(newComputer);
-		lastComputer = newComputer;
+		if(lastComputer == null) {
+			firstComputer = newComputer;
+			lastComputer = newComputer;
+		}else {
+			lastComputer.setNext(newComputer);
+			lastComputer = newComputer;
+		}
 	}
 }

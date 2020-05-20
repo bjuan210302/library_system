@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import model.Library;
+import ui.notifications.Notification;
 
 public class ComputerRegister {
 
@@ -66,7 +67,7 @@ public class ComputerRegister {
 	}
 
 	@FXML
-	void addComputerButtonAction(ActionEvent event) throws InvalidArgsLengthException {
+	void addComputerButtonAction(ActionEvent event) {
 		
 		if (!brandField.validate()) brandField.requestFocus();
 
@@ -82,7 +83,13 @@ public class ComputerRegister {
 					ramField.getText()
 			};
 			
-			lib.addComputer(args);
+			try {
+				lib.addComputer(args);
+				new Notification("The computer was added!", "The device was successfuly added.", Notification.SUCCESS).show();
+				((Stage)cancelButton.getScene().getWindow()).close();
+			} catch (InvalidArgsLengthException e) {
+				new Notification("Somethig went wrong!", e.getMessage(), Notification.ERROR).show();
+			}
 		}
 	}
 
