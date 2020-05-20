@@ -17,10 +17,15 @@ public class Library {
 
 	public static final String BOOK_IDENTIFIER_LITERARY = "Literary";
 	public static final String BOOK_IDENTIFIER_ACADEMIC = "Academic";
-	
 	public static final String LITERARY_BOOK_NOVEL = "Novel";
 	public static final String LITERARY_BOOK_BIOGRAPHY  = "Biography";
 	public static final String LITERARY_BOOK_POETRY  = "Poetry";
+	
+	public static final String ROOM_IDENTIFIER_MEDIA = "Media";
+	public static final String ROOM_IDENTIFIER_STUDY = "Study";
+	public static final String SIZE_SMALL = "SMALL";
+	public static final String SIZE_MEDIUM = "MEDIUM";
+	public static final String SIZE_LARGE = "LARGE";
 	
 	private LocalDateTime sysTime;
 	private ArrayList<Person> users;
@@ -29,11 +34,13 @@ public class Library {
 	private String nextRoomID;
 	private String nextComputerID;
 	
-	private Borrow firstLoan;
-	private Book firstBook;
-	private Book lastBook;
-	private Computer comTree_root;
-	private Room roomTree_root;
+	private Borrow borrowTree_root;
+	private Book bookTree_root;
+	
+	private Computer firstComputer;
+	private Computer lastComputer;
+	private Room firstRoom;
+	private Room lastRoom;
 	
 	public Library() {
 		this.sysTime = LocalDateTime.now();
@@ -51,10 +58,11 @@ public class Library {
 		users = InfoHandler.loadUsers(dataPath);
 	}
 	
+	//BOOK
 	public void addBook(String classIdentifier, String[] args) throws UnknownClassIdentifierException, InvalidArgsLengthException, ExistingObjectException {
 		/*
 		 * To use this method, fill the args array with info in [1 to 7], but leave empty args[0].
-		 * args[0] is for item code, and thats assigned in this method.
+		 * args[0] is for the item code, and thats assigned in this method.
 		 */
 		args[0] = this.nextBookID;
 		Book newBook = InfoHandler.createBook(classIdentifier, args);
@@ -70,20 +78,93 @@ public class Library {
 			throw new ExistingObjectException(alreadyPlacedBook.getCode());
 		}
 		
-		lastBook.setNext(newBook);
-		lastBook = newBook;
+		addBook(newBook);
 		this.nextBookID = InfoHandler.advanceCode(nextBookID);
+	}
+	public void addBook(Book newBook) {
+		Book parent = bookTree_root;
+		Book child = bookTree_root;
+
+		boolean setToRight = false;
+		while(child != null) {
+			parent = child;
+			if(parent.compareTo(newBook) < 0) {
+				child = parent.getRight();
+				setToRight = true;
+			}else {
+				child = parent.getLeft();
+				setToRight = false;
+			}
+		}
+		child = newBook;
+		child.setParent(parent);
+
+		if(bookTree_root == null) {
+			bookTree_root = child;
+		}else if(setToRight) {
+			parent.setRight(newBook);
+		}else{
+			parent.setLeft(newBook);
+		}
 	}
 	
 	public Book searchBookByTitle(String title) {
+		Book actual = bookTree_root;
 		Book found = null;
 		
-		Book actual = firstBook;
 		while(actual != null && found == null) {
-			if(actual.getTitle().equals(title)) found = actual;
-			actual = actual.getNext();
+			if(actual.compareTo(title) < 0) {
+				actual = actual.getRight();
+			}else if(actual.compareTo(title) > 0){
+				actual = actual.getLeft();
+			}else {
+				found = actual;
+			}
+		}
+		return found;
+	}
+	
+	//ROOM
+	public void addRoom(String classIdentifier, String[] args) throws UnknownClassIdentifierException, InvalidArgsLengthException {
+		/*
+		 * To use this method, fill the args array with info in [1 to x], but leave empty args[0].
+		 * args[0] is for the item code, and thats assigned in this method.
+		 */
+		args[0] = this.nextRoomID;
+		Room newRoom = InfoHandler.createRoom(classIdentifier, args);
+		
+		if(newRoom instanceof StudyRoom) { 
+			newRoom = (StudyRoom) newRoom;
+		}else {
+			newRoom = (MediaRoom) newRoom;
 		}
 		
-		return found;
+		//Don't check whether it exist or no because for rooms you can have one or more exact same rooms (same number of chairs etc...)
+		
+		addRoom(newRoom);
+		this.nextRoomID = InfoHandler.advanceCode(nextRoomID);
+	}
+	public void addRoom(Room newRoom) {
+		lastRoom.setNext(newRoom);
+		lastRoom = newRoom;
+	}
+	
+	//COMPUTER
+	public void addComputer(String[] args) throws InvalidArgsLengthException {
+		/*
+		 * To use this method, fill the args array with info in [1 to 3], but leave empty args[0].
+		 * args[0] is for the item code, and thats assigned in this method.
+		 */
+		args[0] = this.nextComputerID;
+		Computer newComputer = InfoHandler.createComputer(args);
+		
+		//Don't check whether it exist or no because for computers you can have one or more exact same devices (same brand and specs)
+	
+		addComputer(newComputer);
+		this.nextComputerID = InfoHandler.advanceCode(nextComputerID);
+	}
+	public void addComputer(Computer newComputer) {
+		lastComputer.setNext(newComputer);
+		lastComputer = newComputer;
 	}
 }

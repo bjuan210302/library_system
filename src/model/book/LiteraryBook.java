@@ -26,12 +26,17 @@ public class LiteraryBook extends Book {
 
 	@Override
 	public boolean equals(Item t) {
-		LiteraryBook lb = (LiteraryBook) t;
-		boolean equals = super.equals(t);
-		
-		if(equals) {
-			if(genre != lb.genre) equals = false;
-			else if(type != lb.type) equals = false;
+		boolean equals;
+
+		if(t instanceof LiteraryBook) {
+			equals = super.equals(t);
+
+			if(equals) {
+				LiteraryBook lb = (LiteraryBook) t;
+				equals = ( (genre.equals(lb.genre)) && (type.equals(lb.type)) );
+			}
+		}else {
+			equals = false;
 		}
 		
 		return equals;

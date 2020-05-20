@@ -1,6 +1,5 @@
 package ui;
 
-
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.io.IOException;
@@ -23,21 +22,19 @@ public class ItemsPaneController {
 		this.lib = lib;
 	}
 	
+	//SEARCH AND VIEW
     @FXML
     private JFXCheckBox booksCheckBox;
-
     @FXML
     private JFXCheckBox studyRCheckBox;
-
     @FXML
     private JFXCheckBox computersCheckBox;
-
     @FXML
     private JFXTextField searchField;
-
+    
+  //ADD, DELETE, MORE INFO
     @FXML
     private JFXButton buttonRegister;
-
     @FXML
     private ContextMenu contextMenuRegister;
 
@@ -62,4 +59,5 @@ public class ItemsPaneController {
     void registerRoom(ActionEvent event) {
 
     }
+    
 }

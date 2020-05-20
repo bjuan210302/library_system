@@ -51,7 +51,7 @@ public class PrincipalController {
     private StackPane principalPane;
     
     @FXML
-    public void itemsButtonAction(ActionEvent event) throws IOException {
+    public void itemsButtonAction(ActionEvent event) {
     	timeline = moveTabTo(firstPane, 0);
     	timeline2 = moveTabTo(secondPane, principalPane.getHeight());
     	
@@ -120,7 +120,7 @@ public class PrincipalController {
         return timeline;
     }
 
-    public void whenInitializing() throws IOException {
+    public void whenInitializing() {
     	
     	itemsPaneController = new ItemsPaneController(lib);
     	

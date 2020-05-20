@@ -13,6 +13,10 @@ import model.Person.*;
 import model.book.AcademicBook;
 import model.book.Book;
 import model.book.LiteraryBook;
+import model.computer.Computer;
+import model.room.MediaRoom;
+import model.room.Room;
+import model.room.StudyRoom;
 public class InfoHandler {
 
 	private static final int LINE_ARGS_LENGTH = 2;
@@ -23,6 +27,11 @@ public class InfoHandler {
 	
 	private static final int LITERARYBOOK_ARGS_LENGTH = 8;
 	private static final int ACADEMICBOOK_ARGS_LENGTH = 8;
+	
+	private static final int STUDYROOM_ARGS_LENGTH = 5;
+	private static final int MEDIAROOM_ARGS_LENGTH = 4;
+	
+	private static final int COMPUTER_ARGS_LENGTH = 4;
 	
 	public static ArrayList<Person> loadUsers(String dataPath) throws IOException, UserLoaderException {
 		BufferedReader br = new BufferedReader(new FileReader(new File(dataPath)));
@@ -109,6 +118,32 @@ public class InfoHandler {
 		return book;
 	}
 	
+	public static Room createRoom(String classIdentifier, String[] args) throws UnknownClassIdentifierException, InvalidArgsLengthException {
+		Room room = null;
+		
+		switch(classIdentifier) {
+		case Library.ROOM_IDENTIFIER_STUDY:
+			if(args.length != STUDYROOM_ARGS_LENGTH) throw new InvalidArgsLengthException("StudyRoom", args.length, STUDYROOM_ARGS_LENGTH);
+			room = new StudyRoom(args);
+			break;
+		case Library.ROOM_IDENTIFIER_MEDIA:
+			if(args.length != MEDIAROOM_ARGS_LENGTH) throw new InvalidArgsLengthException("MediaRoom", args.length, MEDIAROOM_ARGS_LENGTH);
+			room = new MediaRoom(args);
+			break;
+			default:
+				throw new UnknownClassIdentifierException(classIdentifier, "Room");
+		}
+		
+		return room;
+	}
+	
+	public static Computer createComputer(String[] args) throws InvalidArgsLengthException {
+		Computer computer = null;
+		
+		if(args.length != COMPUTER_ARGS_LENGTH) throw new InvalidArgsLengthException("Computer", args.length, COMPUTER_ARGS_LENGTH);
+		
+		return computer;
+	}
 	public static String advanceCode(String actualCode) {
 		/*
 		 * The tag must be formatted like: X-y*

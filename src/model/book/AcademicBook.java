@@ -26,12 +26,17 @@ public class AcademicBook extends Book {
 	
 	@Override
 	public boolean equals(Item t) {
-		AcademicBook ab = (AcademicBook) t;
-		boolean equals = super.equals(t);
+		boolean equals;
 		
-		if(equals) {
-			if(coursesUsingThisBook != ab.coursesUsingThisBook) equals = false;
-			else if(edition != ab.edition) equals = false;
+		if(t instanceof AcademicBook) {
+			equals = super.equals(t);
+			
+			if(equals) {
+				AcademicBook ab = (AcademicBook) t;
+				equals = ( (coursesUsingThisBook.equals(ab.coursesUsingThisBook)) && (edition == ab.edition) );
+			}
+		}else {
+			equals = false;
 		}
 		
 		return equals;
