@@ -23,9 +23,9 @@ public class Library {
 	
 	public static final String ROOM_IDENTIFIER_MEDIA = "Media";
 	public static final String ROOM_IDENTIFIER_STUDY = "Study";
-	public static final String SIZE_SMALL = "SMALL";
-	public static final String SIZE_MEDIUM = "MEDIUM";
-	public static final String SIZE_LARGE = "LARGE";
+	public static final String SIZE_SMALL = "Small";
+	public static final String SIZE_MEDIUM = "Medium";
+	public static final String SIZE_LARGE = "Large";
 	
 	private LocalDateTime sysTime;
 	private ArrayList<Person> users;

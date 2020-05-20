@@ -3,8 +3,6 @@ package ui;
 import java.io.IOException;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXTextField;
 
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -123,23 +121,27 @@ public class PrincipalController {
     public void whenInitializing() {
     	
     	itemsPaneController = new ItemsPaneController(lib);
-    	
-    	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("itemsPane.fxml"));
-    	fxmlLoader.setController(itemsPaneController);
-    	firstPane = fxmlLoader.load();
-    	firstPane.translateYProperty().set(0);
-    	principalPane.getChildren().add(firstPane);
-    	
-    	fxmlLoader = new FXMLLoader(getClass().getResource("usersPane.fxml"));
-    	fxmlLoader.setController(this);
-    	secondPane = fxmlLoader.load();
-    	secondPane.translateYProperty().set(principalPane.getHeight());
-    	principalPane.getChildren().add(secondPane);
-    	
-    	fxmlLoader = new FXMLLoader(getClass().getResource("borrowsPane.fxml"));
-    	fxmlLoader.setController(this);
-    	thirdPane = fxmlLoader.load();
-    	thirdPane.translateYProperty().set(2*principalPane.getHeight());
-    	principalPane.getChildren().add(thirdPane);
+
+    	try {
+    		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("itemsPane.fxml"));
+    		fxmlLoader.setController(itemsPaneController);
+    		firstPane = fxmlLoader.load();
+    		firstPane.translateYProperty().set(0);
+    		principalPane.getChildren().add(firstPane);
+
+    		fxmlLoader = new FXMLLoader(getClass().getResource("usersPane.fxml"));
+    		fxmlLoader.setController(this);
+    		secondPane = fxmlLoader.load();
+    		secondPane.translateYProperty().set(principalPane.getHeight());
+    		principalPane.getChildren().add(secondPane);
+
+    		fxmlLoader = new FXMLLoader(getClass().getResource("borrowsPane.fxml"));
+    		fxmlLoader.setController(this);
+    		thirdPane = fxmlLoader.load();
+    		thirdPane.translateYProperty().set(2*principalPane.getHeight());
+    		principalPane.getChildren().add(thirdPane);
+    	}catch(IOException e) {
+    		//TODO 
+    	}
     }
 }

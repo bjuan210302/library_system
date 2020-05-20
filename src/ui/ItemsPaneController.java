@@ -14,6 +14,8 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.paint.Paint;
 import model.Library;
 import ui.book.BookRegister;
+import ui.computer.ComputerRegister;
+import ui.room.RoomRegister;
 
 public class ItemsPaneController {
 	private Library lib;
@@ -51,13 +53,15 @@ public class ItemsPaneController {
     }
 
     @FXML
-    void registerComputer(ActionEvent event) {
-
+    void registerRoom(ActionEvent event) throws IOException {
+    	RoomRegister roomRegister = new RoomRegister(lib);
+    	roomRegister.roomRegWindow();
     }
-
+    
     @FXML
-    void registerRoom(ActionEvent event) {
-
+    void registerComputer(ActionEvent event) throws IOException {
+    	ComputerRegister computerRegister = new ComputerRegister(lib);
+    	computerRegister.computerRegWindow();
     }
     
 }

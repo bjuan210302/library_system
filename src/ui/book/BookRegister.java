@@ -95,7 +95,7 @@ public class BookRegister {
     	BorderPane basicBookRegPane = fxmlLoader.load();
     	Scene scene = new Scene(basicBookRegPane);
     	
-    	//
+    	//INIT
     	bookTypeBox.getItems().addAll(Library.BOOK_IDENTIFIER_LITERARY, Library.BOOK_IDENTIFIER_ACADEMIC);
     	bookTypeBox.getSelectionModel().select(0);
     	basicInfoPane = (AnchorPane) ((StackPane)basicBookRegPane.getCenter()).getChildren().get(0);
@@ -184,28 +184,35 @@ public class BookRegister {
     }
     @FXML
     public void addBookButtonAction(ActionEvent event) throws UnknownClassIdentifierException, InvalidArgsLengthException, ExistingObjectException {
+
     	String[] args = new String[8];
-    	
+
     	args[1] = titleField.getText();
     	args[2] = authorField.getText();
     	args[3] = dateOfPublicationField.getValue().toString();
     	args[4] = editorField.getText();
     	args[5] = numPagesField.getText();
-    	
+
     	switch(bookTypeBox.getValue()) {
     	case Library.BOOK_IDENTIFIER_LITERARY:
-    		args[6] = literaryBookGenreField.getText();
-    		args[7] = literaryBookTypeBox.getValue();
+    		if(!literaryBookGenreField.validate()) literaryBookGenreField.requestFocus();
+    		else {
+    			args[6] = literaryBookGenreField.getText();
+    			args[7] = literaryBookTypeBox.getValue();
+    			lib.addBook(bookTypeBox.getValue(), args);
+    		}
     		break;
     	case Library.BOOK_IDENTIFIER_ACADEMIC:
-    		args[6] = academicBookCoursesList.getText();
-    		args[7] = academicBookEditionField.getText();
+    		if(!academicBookEditionField.validate()) academicBookEditionField.requestFocus();
+    		else {
+    			args[6] = academicBookCoursesList.getText();
+    			args[7] = academicBookEditionField.getText();
+    			lib.addBook(bookTypeBox.getValue(), args);
+    		}
     		break;
     	}
-    	
-    	lib.addBook(bookTypeBox.getValue(), args);
     }
-    
+
     public void animateHeader() {
     	Paint aux = secondLabel.getTextFill();
     	secondLabel.setTextFill(firstLabel.getTextFill());
