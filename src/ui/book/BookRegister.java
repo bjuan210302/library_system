@@ -31,6 +31,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import model.Library;
+import ui.notifications.Notification;
 
 public class BookRegister {
 
@@ -89,10 +90,15 @@ public class BookRegister {
     @FXML
     private JFXButton backButton;
     
-    public void basicBookRegWindow() throws IOException {
+    public void basicBookRegWindow() {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("basicBookRegPane.fxml"));
     	fxmlLoader.setController(this);
-    	BorderPane basicBookRegPane = fxmlLoader.load();
+    	BorderPane basicBookRegPane = null;
+		try {
+			basicBookRegPane = fxmlLoader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     	Scene scene = new Scene(basicBookRegPane);
     	
     	//INIT
@@ -120,7 +126,7 @@ public class BookRegister {
 	}
     
     @FXML
-    public void nextButtonAction(ActionEvent event) throws IOException {
+    public void nextButtonAction(ActionEvent event) {
     	if(!titleField.validate()) titleField.requestFocus();
     	
     	else if(!authorField.validate()) authorField.requestFocus();
@@ -183,7 +189,7 @@ public class BookRegister {
         animateHeader();
     }
     @FXML
-    public void addBookButtonAction(ActionEvent event) throws UnknownClassIdentifierException, InvalidArgsLengthException, ExistingObjectException {
+    public void addBookButtonAction(ActionEvent event) {
 
     	String[] args = new String[8];
 
@@ -199,7 +205,12 @@ public class BookRegister {
     		else {
     			args[6] = literaryBookGenreField.getText();
     			args[7] = literaryBookTypeBox.getValue();
-    			lib.addBook(bookTypeBox.getValue(), args);
+    			try {
+					lib.addBook(bookTypeBox.getValue(), args);
+					new Notification("The book was added!", "The item was successfuly added.", Notification.SUCCESS).show();
+				} catch (UnknownClassIdentifierException | InvalidArgsLengthException | ExistingObjectException e) {
+					new Notification("Somethig went wrong!", e.getMessage(), Notification.ERROR).show();
+				}
     		}
     		break;
     	case Library.BOOK_IDENTIFIER_ACADEMIC:
@@ -207,7 +218,12 @@ public class BookRegister {
     		else {
     			args[6] = academicBookCoursesList.getText();
     			args[7] = academicBookEditionField.getText();
-    			lib.addBook(bookTypeBox.getValue(), args);
+    			try {
+					lib.addBook(bookTypeBox.getValue(), args);
+					new Notification("The book was added!", "The item was successfuly added.", Notification.SUCCESS).show();
+				} catch (UnknownClassIdentifierException | InvalidArgsLengthException | ExistingObjectException e) {
+					new Notification("Somethig went wrong!", e.getMessage(), Notification.ERROR).show();
+				}
     		}
     		break;
     	}
@@ -218,7 +234,7 @@ public class BookRegister {
     	secondLabel.setTextFill(firstLabel.getTextFill());
     	firstLabel.setTextFill(aux);
     }
-    public void changePanel() throws IOException {
+    public void changePanel() {
     	String type = bookTypeBox.getValue();
     	
     	switch(type) {
@@ -231,10 +247,15 @@ public class BookRegister {
     	}
     }
     
-    public void loadSpecificationsBookPane(String url, String bookType) throws IOException {
+    public void loadSpecificationsBookPane(String url, String bookType) {
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
     	fxmlLoader.setController(this);
-    	specificationsPane = fxmlLoader.load();
+    	try {
+			specificationsPane = fxmlLoader.load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	
     	specificationsPane.translateXProperty().set(baseStackPane.getWidth());
     	specificationsPane.setOpacity(0);

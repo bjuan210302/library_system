@@ -38,9 +38,7 @@ public class Library {
 	private Book bookTree_root;
 	
 	private Computer firstComputer;
-	private Computer lastComputer;
 	private Room firstRoom;
-	private Room lastRoom;
 	
 	public Library() {
 		this.sysTime = LocalDateTime.now();
@@ -54,10 +52,46 @@ public class Library {
 		return users;
 	}
 	
+	//USER
 	public void loadUsers(String dataPath) throws IOException, UserLoaderException {
 		users = InfoHandler.loadUsers(dataPath);
 	}
-	
+	public void saveUsers(String dataPath) throws IOException {
+		InfoHandler.saveUsers(users, dataPath);
+	}
+	public Person binarySearchUser(String id) {
+		bubbleSortUsers();
+		
+		Person user = null;
+	    int low = 0;
+	    int high = users.size();
+	    while (low <= high && user == null) {
+	        int mid = (low + high) / 2;
+	        if (users.get(mid).compareTo(id) < 0) {
+	            low = mid + 1;
+	        } else if (users.get(mid).compareTo(id) > 0) {
+	            high = mid - 1;
+	        } else if (users.get(mid).compareTo(id) == 0) {
+	        	user = users.get(mid);
+	        }
+	    }
+	    return user;
+
+	}
+	public void bubbleSortUsers() {
+		int n = users.size();
+	      Person aux = null;
+
+	      for(int i = 0; i < n; i++) {
+	         for(int j=1; j < (n-i); j++) {
+	            if(users.get(j-1).compareTo(users.get(j)) > 0) {
+	               aux = users.get(j-1);
+	               users.set(j-1, users.get(j));
+	               users.set(j, aux);
+	            }
+	         }
+	      }
+	}
 	//BOOK
 	public void addBook(String classIdentifier, String[] args) throws UnknownClassIdentifierException, InvalidArgsLengthException, ExistingObjectException {
 		/*
@@ -73,54 +107,50 @@ public class Library {
 			newBook = (AcademicBook) newBook;
 		}
 		
-		Book alreadyPlacedBook = searchBookByTitle(args[1]);
+		Book alreadyPlacedBook = searchBookByTitle(bookTree_root, args[1]);
 		if(alreadyPlacedBook != null && alreadyPlacedBook.equals(newBook)) {
 			throw new ExistingObjectException(alreadyPlacedBook.getCode());
 		}
 		
-		addBook(newBook);
+		if(bookTree_root != null) addBook(bookTree_root,newBook);
+		else bookTree_root = newBook;
+		
 		this.nextBookID = InfoHandler.advanceCode(nextBookID);
 	}
-	public void addBook(Book newBook) {
-		Book parent = bookTree_root;
-		Book child = bookTree_root;
-
-		boolean setToRight = false;
-		while(child != null) {
-			parent = child;
-			if(parent.compareTo(newBook) < 0) {
-				child = parent.getRight();
-				setToRight = true;
+	public void addBook(Book bookInTree, Book newBook) {
+		if(bookInTree.compareTo(newBook) > 0) {
+			if(bookInTree.getLeft() != null) {
+				addBook(bookInTree.getLeft(), newBook);
 			}else {
-				child = parent.getLeft();
-				setToRight = false;
+				newBook.setParent(bookInTree);
+				newBook.setLeft(newBook);
 			}
-		}
-		child = newBook;
-		child.setParent(parent);
-
-		if(bookTree_root == null) {
-			bookTree_root = child;
-		}else if(setToRight) {
-			parent.setRight(newBook);
-		}else{
-			parent.setLeft(newBook);
+		}else {
+			if(bookInTree.getRight() != null) {
+				addBook(bookInTree.getRight(), newBook);
+			}else {
+				newBook.setParent(bookInTree);
+				bookInTree.setRight(newBook);
+			}
 		}
 	}
 	
-	public Book searchBookByTitle(String title) {
-		Book actual = bookTree_root;
+	public Book searchBookByTitle(Book bookInTree, String title) {
 		Book found = null;
 		
-		while(actual != null && found == null) {
-			if(actual.compareTo(title) < 0) {
-				actual = actual.getRight();
-			}else if(actual.compareTo(title) > 0){
-				actual = actual.getLeft();
+		if(bookInTree == null) {
+		}else {
+			found = null;
+			
+			if(bookInTree.compareTo(title) < 0) {
+				found = searchBookByTitle(bookInTree.getLeft(), title);
+			}else if(bookInTree.compareTo(title) > 0){
+				found = searchBookByTitle(bookInTree.getRight(), title);
 			}else {
-				found = actual;
+				found = bookInTree;
 			}
 		}
+		
 		return found;
 	}
 	
@@ -133,20 +163,21 @@ public class Library {
 		args[0] = this.nextRoomID;
 		Room newRoom = InfoHandler.createRoom(classIdentifier, args);
 		
-		if(newRoom instanceof StudyRoom) { 
-			newRoom = (StudyRoom) newRoom;
-		}else {
-			newRoom = (MediaRoom) newRoom;
-		}
-		
 		//Don't check whether it exist or no because for rooms you can have one or more exact same rooms (same number of chairs etc...)
 		
-		addRoom(newRoom);
+		if(firstRoom == null) {
+			firstRoom = newRoom;
+		}else {
+			addRoom(firstRoom, newRoom);
+		}
 		this.nextRoomID = InfoHandler.advanceCode(nextRoomID);
 	}
-	public void addRoom(Room newRoom) {
-		lastRoom.setNext(newRoom);
-		lastRoom = newRoom;
+	public void addRoom(Room roomInList,Room newRoom) {
+		if(roomInList.getNext() == null) {
+			roomInList.setNext(newRoom);
+		}else {
+			addRoom(roomInList.getNext(), newRoom);
+		}
 	}
 	
 	//COMPUTER
@@ -160,16 +191,18 @@ public class Library {
 		
 		//Don't check whether it exist or no because for computers you can have one or more exact same devices (same brand and specs)
 	
-		addComputer(newComputer);
+		if(firstComputer == null) {
+			firstComputer = newComputer;
+		}else {
+			addComputer(firstComputer, newComputer);
+		}
 		this.nextComputerID = InfoHandler.advanceCode(nextComputerID);
 	}
-	public void addComputer(Computer newComputer) {
-		if(lastComputer == null) {
-			firstComputer = newComputer;
-			lastComputer = newComputer;
+	public void addComputer(Computer comInList, Computer newComputer) {
+		if(comInList.getNext() == null) {
+			comInList.setNext(newComputer);
 		}else {
-			lastComputer.setNext(newComputer);
-			lastComputer = newComputer;
+			addComputer(comInList.getNext(), newComputer);
 		}
 	}
 }

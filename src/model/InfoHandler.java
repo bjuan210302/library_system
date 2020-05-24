@@ -1,9 +1,12 @@
 package model;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import customExceptions.InvalidArgsLengthException;
@@ -20,8 +23,8 @@ import model.room.StudyRoom;
 public class InfoHandler {
 
 	private static final int LINE_ARGS_LENGTH = 2;
-	private static final String PROFESSOR_CLASS_IDENTIFIER = "p";
-	private static final String STUDENT_CLASS_IDENTIFIER = "s";
+	public static final String PROFESSOR_CLASS_IDENTIFIER = "p";
+	public static final String STUDENT_CLASS_IDENTIFIER = "s";
 	private static final int STUDENT_ARGS_LENGTH = 7;
 	private static final int PROFESSOR_ARGS_LENGTH = 4;
 	
@@ -98,7 +101,17 @@ public class InfoHandler {
 		br.close();
 		return users;
 	}
-
+	public static void saveUsers(ArrayList<Person> users, String dataPath) throws IOException {
+		PrintWriter pw = new PrintWriter(new File(dataPath));
+		
+		for(int i = 0; i < users.size(); i++) {
+			Person p = users.get(i);
+			pw.println(p.getFormattedToSaveInfo());
+		}
+		
+		pw.close();
+	}
+	
 	public static Book createBook(String classIdentifier, String[] args) throws UnknownClassIdentifierException, InvalidArgsLengthException {
 		Book book = null;
 		

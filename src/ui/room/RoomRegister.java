@@ -32,6 +32,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import model.Library;
+import ui.notifications.Notification;
 
 public class RoomRegister {
 	
@@ -71,10 +72,15 @@ public class RoomRegister {
     @FXML
     private JFXButton addRoomButton;
     
-    public void roomRegWindow() throws IOException {
+    public void roomRegWindow() {
     	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("roomRegPane.fxml"));
     	fxmlLoader.setController(this);
-    	BorderPane roomRegPane = fxmlLoader.load();
+    	BorderPane roomRegPane = null;
+		try {
+			roomRegPane = fxmlLoader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     	Scene scene = new Scene(roomRegPane);
     	
     	//INIT
@@ -129,7 +135,7 @@ public class RoomRegister {
     
 
     @FXML
-    void addRoomButtonAction(ActionEvent event) throws UnknownClassIdentifierException, InvalidArgsLengthException, ExistingObjectException {
+    void addRoomButtonAction(ActionEvent event) {
     	
     	if (!numPlugsField.validate()) numPlugsField.requestFocus();
     	
@@ -145,13 +151,23 @@ public class RoomRegister {
     		case Library.ROOM_IDENTIFIER_STUDY:
     			args.add(tableSizeBox.getValue());
     			args.add(whiteboardSizeBox.getValue());
-    			lib.addBook(roomTypeBox.getValue(), (String[])args.toArray());
+    			try {
+					lib.addBook(roomTypeBox.getValue(), (String[])args.toArray());
+					new Notification("The room was added!", "Everything went ok.", Notification.SUCCESS).show();
+				} catch (UnknownClassIdentifierException | InvalidArgsLengthException | ExistingObjectException e) {
+					new Notification("Somethig went wrong!", e.getMessage(), Notification.ERROR).show();
+				}
     			break;
     		case Library.ROOM_IDENTIFIER_MEDIA:
     			if (!tvBrandField.validate()) tvBrandField.requestFocus();
     			else {
     				args.add(tvBrandField.getText());
-    				lib.addBook(roomTypeBox.getValue(), (String[])args.toArray());
+    				try {
+						lib.addBook(roomTypeBox.getValue(), (String[])args.toArray());
+						new Notification("The room was added!", "Everything went ok.", Notification.SUCCESS).show();
+					} catch (UnknownClassIdentifierException | InvalidArgsLengthException | ExistingObjectException e) {
+						new Notification("Somethig went wrong!", e.getMessage(), Notification.ERROR).show();
+					}
     			}break;
     		}
     		

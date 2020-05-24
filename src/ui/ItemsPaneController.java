@@ -47,19 +47,19 @@ public class ItemsPaneController {
     }
     
     @FXML
-    void registerBook(ActionEvent event) throws IOException {
+    void registerBook(ActionEvent event) {
     	BookRegister bookRegister = new BookRegister(lib);
     	bookRegister.basicBookRegWindow();
     }
 
     @FXML
-    void registerRoom(ActionEvent event) throws IOException {
+    void registerRoom(ActionEvent event) {
     	RoomRegister roomRegister = new RoomRegister(lib);
     	roomRegister.roomRegWindow();
     }
     
     @FXML
-    void registerComputer(ActionEvent event) throws IOException {
+    void registerComputer(ActionEvent event) {
     	ComputerRegister computerRegister = new ComputerRegister(lib);
     	computerRegister.computerRegWindow();
     }

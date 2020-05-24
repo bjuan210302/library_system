@@ -1,5 +1,7 @@
 package model.Person;
 
+import model.InfoHandler;
+
 public class Student extends Person {
 
 	private String code;
@@ -40,6 +42,11 @@ public class Student extends Person {
 		}
 		
 		return equals;
+	}
+
+	@Override
+	public String getFormattedToSaveInfo() {
+		return InfoHandler.STUDENT_CLASS_IDENTIFIER +"-"+name+";"+id+";"+suspended+";"+code+";"+career+";"+hasScholarship+";"+isMonitor;
 	}
 	
 }

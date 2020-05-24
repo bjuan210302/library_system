@@ -1,5 +1,7 @@
 package model.Person;
 
+import model.InfoHandler;
+
 public class Professor extends Person {
 
 	private String courses; // separate,per,commas
@@ -28,5 +30,11 @@ public class Professor extends Person {
 		}
 		
 		return equals;
+	}
+
+	@Override
+	public String getFormattedToSaveInfo() {
+		String formattedCourses = courses.replace("\n", ",");
+		return InfoHandler.PROFESSOR_CLASS_IDENTIFIER+"-"+name+";"+id+";"+suspended+";"+formattedCourses;
 	}
 }

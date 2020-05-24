@@ -22,4 +22,12 @@ public abstract class Person {
 		
 		return equals;
 	}
+	
+	public int compareTo(Person person){
+		return id.compareTo(person.id);
+	}
+	public int compareTo(String id){
+		return id.compareTo(id);
+	}
+	public abstract String getFormattedToSaveInfo();
 }

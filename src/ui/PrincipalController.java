@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
@@ -22,7 +23,7 @@ public class PrincipalController {
 	private Library lib;
 	private int currentPanel;
     private BorderPane firstPane;
-    private BorderPane secondPane;
+    private AnchorPane secondPane;
     private BorderPane thirdPane;
     
 	public PrincipalController() {
@@ -31,6 +32,7 @@ public class PrincipalController {
 	}
 	//CONTROLLER
 	private ItemsPaneController itemsPaneController;
+	private UsersPaneController usersPaneController;
 	
 	//ANIMATION STUFF
 	static final double ANIMATION_DURATION = 0.2;
@@ -121,6 +123,7 @@ public class PrincipalController {
     public void whenInitializing() {
     	
     	itemsPaneController = new ItemsPaneController(lib);
+    	usersPaneController = new UsersPaneController(lib);
 
     	try {
     		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("itemsPane.fxml"));
@@ -130,7 +133,7 @@ public class PrincipalController {
     		principalPane.getChildren().add(firstPane);
 
     		fxmlLoader = new FXMLLoader(getClass().getResource("usersPane.fxml"));
-    		fxmlLoader.setController(this);
+    		fxmlLoader.setController(usersPaneController);
     		secondPane = fxmlLoader.load();
     		secondPane.translateYProperty().set(principalPane.getHeight());
     		principalPane.getChildren().add(secondPane);

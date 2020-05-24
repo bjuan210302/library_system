@@ -44,10 +44,16 @@ public class ComputerRegister {
 	@FXML
 	private JFXButton addComputerButton;
 
-	public void computerRegWindow() throws IOException {
+	public void computerRegWindow() {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("computerRegPane.fxml"));
     	fxmlLoader.setController(this);
-    	BorderPane computerRegPane = fxmlLoader.load();
+    	BorderPane computerRegPane = null;
+		try {
+			computerRegPane = fxmlLoader.load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	Scene scene = new Scene(computerRegPane);
     	
     	//INIT
